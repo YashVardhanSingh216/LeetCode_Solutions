@@ -47,3 +47,44 @@ public:
         
     }
 };
+
+// METHOD 2 :- -> (EASIER APPROACH)
+
+
+bool is_present(int num,int k, vector<int>freq){
+
+    while(k--){
+        int n = num % 10;
+        freq[n]--;
+
+        if(freq[n] < 0)
+            return 0;
+
+        num/=10;
+    }
+    return 1;
+}
+class Solution {
+public:
+    int totalNumbers(vector<int>& digits) {
+
+        int n = digits.size();
+
+        // unordered_map<int,int>mp; -> CAN BE USED BUT SLOWER
+        vector<int>freq(10,0);
+
+        for(int i=0; i<n; i++){
+            freq[digits[i]]++;
+        }
+
+        int count = 0;
+        for(int i=100; i<1000; i+=2){
+            if(is_present(i,3,freq))
+                count++;
+        }
+
+        cout<<count<<endl;
+        return count;
+
+    }
+};
